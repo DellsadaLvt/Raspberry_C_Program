@@ -4,12 +4,6 @@
 #include<stdlib.h>
 
 
-// OUTPUT
-#define red		12
-#define green	18
-#define	blue	16
-
-
 // INPUT
 #define button_00	11
 
@@ -34,17 +28,10 @@ int main( void )
 	
 	
 	// SETUP IO
-	pinMode(	red , 	OUTPUT	);
-	pinMode(	blue, 	OUTPUT	);
-	pinMode(	green, 	OUTPUT	);
+	pinMode(	red , 		OUTPUT	);
+	pinMode(	blue, 		OUTPUT	);
+	pinMode(	green, 		OUTPUT	);
 	pinMode(	button_00,	INPUT	);
-	
-	
-	
-	// INTERRUPTS
-//wiringPiISR(	button_00, INT_EDGE_RISING, &handle_button_00	);
-
-	
 	
 	
 	// INITIAL STATE
@@ -69,10 +56,17 @@ void lighLedRandom( void )
 	if( millis() - timez >=	3000	)
 	{
 		timez = millis();
+		
+		// on led random
 		digitalWrite( arrayLed[rand()%3] , 1);
-		delay(1000);
-		//int ran = rand()%3;
-		//printf("rand %d\n", ran );
+		
+		delay(500);
+		
+		// turn all led
+		digitalWrite( red,	0);
+		digitalWrite( blue,  0);
+		digitalWrite( green, 0);
+
 	}
 }
 
