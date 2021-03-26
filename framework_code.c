@@ -96,3 +96,27 @@ int main( void )
 /********************* SUBROUTINE *****************/
 //
 //
+/* x is the button, y is the position of led in array led */
+void interrupts_handle_button( char x , char y )
+{
+	if( 1 == mode )
+		if( y == led )
+			if( 1 == digitalRead( x ) )
+			{
+				delay(20);
+				if( 1 == digitalRead( x ) )
+				{
+					// create the time of press button
+					count++;
+					
+					for( int j=0; j< 2; j++)
+					{
+						controlLed(1);
+						delay(250);
+						controlLed(0);
+						delay(250);				
+					}
+					
+				}
+			} 
+}
