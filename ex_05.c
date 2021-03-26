@@ -5,8 +5,6 @@
 #include<stdlib.h>
 
 
-
-
 /********************** INPUT **********************/
 #define button_00	11
 #define button_01	13
