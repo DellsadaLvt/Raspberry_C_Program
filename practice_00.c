@@ -16,9 +16,9 @@
 
 /*======================= DECLARE FUNC =======================*/
 void test_func( void);
-void reset_all_register( int mpu );
-void init_mpu( int mpu );
-void read_register(  int mpu, int reg);
+void reset_all_register(const int *mpu );
+void init_mpu( const int *mpu );
+void read_register(  const int *mpu, int reg);
 
 
 /*======================= MAIN FUNCTION =======================*/
@@ -35,13 +35,18 @@ int main( void )
 	pinMode( int_mpu, INPUT)	;
 	
 	/* RESET ALL REGISTER */
-	reset_all_register( mpu );
-	delay(500);
-	/*  INITIAL MPU*/
-	init_mpu( mpu);
-	read_register( mpu, Config);
+	//reset_all_register( mpu );
 
-	
+	/*  INITIAL MPU*/
+	init_mpu( &mpu);
+
+
+	while(1)
+	{
+		printf("\nThe result: %d\n", wiringPiI2CReadReg8(mpu, 59));
+		printf("*-*\n");
+		delay(500);
+	}
 	
 	
 	return 0;
@@ -54,29 +59,30 @@ void test_func( void)
 	
 }
 /*------------------------*/
-void init_mpu( int mpu )
+void init_mpu(const int *mpu )
 {
-	wiringPiI2CWriteReg8(mpu, Samp_rate, 0x01);
-	wiringPiI2CWriteReg8(mpu, Config, 0x02);
-	wiringPiI2CWriteReg8(mpu, Gyro_config, 0x08);
-	wiringPiI2CWriteReg8(mpu, Acc_config, 0x08);
-	wiringPiI2CWriteReg8(mpu, Power_manager, 0x01);
+	wiringPiI2CWriteReg8(*mpu, Samp_rate, 0x01);
+	wiringPiI2CWriteReg8(*mpu, Config, 0x02);
+	wiringPiI2CWriteReg8(*mpu, Gyro_config, 0x08);
+	wiringPiI2CWriteReg8(*mpu, Acc_config, 0x08);
+	wiringPiI2CWriteReg8(*mpu, Power_manager, 0x01);
+	read_register( &(*mpu), Gyro_config);
 }
 
 
 /*------------------------*/
-void reset_all_register( int mpu )
+void reset_all_register( const int *mpu )
 {
-	wiringPiI2CWriteReg8(mpu, Power_manager, 0x80); // should be transform 0x7F before 0x80 
+	wiringPiI2CWriteReg8(*mpu, Power_manager, 0x80); // should be transform 0x7F before 0x80 
 														// if the result is not as expected
-	read_register(mpu, Power_manager);
-	read_register(mpu, Samp_rate);
+	read_register( &(*mpu), Power_manager);
+	read_register( &(*mpu), Samp_rate);
 }
 
 
 /*------------------------*/
-void read_register( int mpu,  int reg)
+void read_register( const int *mpu,  int reg)
 {
-	printf("\nThe value of the reg[%d]: %x\n", reg, wiringPiI2CReadReg8(mpu, reg));
+	printf("\nThe value of the reg[%d]: %x\n", reg, wiringPiI2CReadReg8(*mpu, reg));
 }
 
