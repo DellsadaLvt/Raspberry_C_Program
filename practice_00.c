@@ -36,9 +36,11 @@ int main( void )
 	
 	/* RESET ALL REGISTER */
 	reset_all_register( mpu );
-	
+	delay(500);
 	/*  INITIAL MPU*/
-	
+	init_mpu( mpu);
+	read_register( mpu, Config);
+
 	
 	
 	
@@ -65,7 +67,8 @@ void init_mpu( int mpu )
 /*------------------------*/
 void reset_all_register( int mpu )
 {
-	wiringPiI2CWriteReg8(mpu, Power_manager, 0x80);
+	wiringPiI2CWriteReg8(mpu, Power_manager, 0x80); // should be transform 0x7F before 0x80 
+														// if the result is not as expected
 	read_register(mpu, Power_manager);
 	read_register(mpu, Samp_rate);
 }
