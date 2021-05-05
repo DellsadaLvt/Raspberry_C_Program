@@ -1,0 +1,13 @@
+--- MyCode.c	2021-03-13 16:26:00.094239119 +0700
++++ new.c	2021-03-13 16:40:09.823388110 +0700
+@@ -1,8 +1,9 @@
+ #include<stdio.h>
+ 
++
+ int main(void)
+ {
+-	printf("HELLO WORLD\n");
++	printf("HELLO WORLD!\n");
+ 
+ 	return 0;
+ }
