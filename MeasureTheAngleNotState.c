@@ -20,6 +20,9 @@
 #define Acc_z_out		63
 #define Int_config		55			// 0x80: int level is low active in data readly.
 #define Ena_int 		56			// 0x01: set interrupts in only data readly mode
+#define GyroXOut		67
+#define GyroYOut		69
+#define GyroZOut		71
 
 /*======================== VARIABLES ==================*/
 int mpu;
@@ -27,35 +30,25 @@ int mpu;
 void test_func( void);
 void reset_all_register(const int *mpu);
 void init_mpu(const int *mpu);
-void read_register(const int *mpu, int reg);
+uint16_t read_register( const int *mpu,  char reg);
 void test_function(const int *mpu, const int8_t reg_add, int8_t value);
 int16_t read_Acc(const int *mpu, uint8_t sensor_add);
 float caculate_angle(const int *mpu, char mode[]);
-
+float MeasureGyro( int *mpu, int sensor);
 
 /*======================= INTERRUPTS FUNCTION =======================*/
-void handle_int_mpu( void )
+/* void handle_int_mpu( void )
 {
-	float avg[102] , error;
-	//printf("the int status is: %x\n", u8ReadIntStatus);
-	/* for( uint8_t i= 0; i< 100; i++)
-		avg[i] = caculate_angle( &mpu, "roll");
-	for( uint8_t i=0; i<100; i++)
-		avg[101] += avg[i];
-	avg[101] /= 100;
-	if( avg[101] >=0)
-	{
-	}
-	else */
-		avg[101] =caculate_angle( &mpu, "roll");
-
+	
+	//printf("the int status is: %x\n", u8ReadIntStatus); 
+	float read = caculate_angle( &mpu, "roll");
 	//int16_t test = read_Acc( &mpu, Acc_x_out);
-		printf("%.3f\n", avg[101]); 	
+	printf("The Roll value: %.3f\n", read); 	
 	//int16_t rusult = read_Acc( &mpu, Acc_x_out)
 	//int8_t u8ReadIntStatus = wiringPiI2CReadReg8( mpu, 58);
-	//delay(500);
+	delay(500);
 
-}
+} */
 
 
 /*======================= MAIN FUNCTION =======================*/
@@ -72,7 +65,7 @@ int main( void )
 	pinMode( int_mpu, INPUT);
 	
 	/* CREATE INTERRUPTS */
-	wiringPiISR( int_mpu, INT_EDGE_RISING, &handle_int_mpu);
+	//wiringPiISR( int_mpu, INT_EDGE_RISING, &handle_int_mpu);
 	
 	/* RESET ALL REGISTER */
 	//reset_all_register( &mpu );
@@ -83,10 +76,33 @@ int main( void )
 	//int8_t r = wiringPiI2CReadReg8( mpu, 58);
 	
 	
+	/* CREATE THE VALUE HERE */
+	int time = 0;
+	float fWp, fRollP;
+	
+	/* MEASURE THE FIRST TIME */
+	fRollP = caculate_angle( &mpu, "roll");
+	fWp 	= MeasureGyro(&mpu, GyroXOut);
+	printf("\n*********** The roll value: 	%f\n", fRollP);
+	
 	/*-------- WHILE LOOP ---------*/
 	while(1)
 	{
-
+		/* float fReadGyroX = MeasureGyro(&mpu , GyroXOut);
+		printf("\n-------- %f -------\n", fReadGyroX);
+		delay(800); */
+		
+		if( (millis() - time)  >= 1000)
+		{
+			time= millis();
+			float fW 	= MeasureGyro(&mpu, GyroXOut);
+			float fRoll = fRollP + 0.5*(fWp + fW);
+			fRollP = fRoll;
+			fWp 	= fW;
+			printf("\n%2f", fRoll);
+		} 
+		
+	
 	}
 	
 	return 0;
@@ -110,7 +126,7 @@ void init_mpu(const int *mpu )
 	wiringPiI2CWriteReg8(*mpu, Samp_rate, 1);
 	wiringPiI2CWriteReg8(*mpu, Config, 2);
 	wiringPiI2CWriteReg8(*mpu, Gyro_config, 0x08);
-	wiringPiI2CWriteReg8(*mpu, Acc_config, 0);
+	wiringPiI2CWriteReg8(*mpu, Acc_config, 0x08);
 	wiringPiI2CWriteReg8(*mpu, Int_config, 0);
 	wiringPiI2CWriteReg8(*mpu, Ena_int, 0x01);
 	wiringPiI2CWriteReg8(*mpu, Power_manager, 0x01);
@@ -130,9 +146,9 @@ void reset_all_register( const int *mpu )
 
 
 /*------------------------*/
-void read_register( const int *mpu,  int reg)
+uint16_t read_register( const int *mpu,  char reg)
 {
-	printf("\nThe value of the reg[%d]: %x\n", reg, wiringPiI2CReadReg8(*mpu, reg));
+	return(wiringPiI2CReadReg8(*mpu, reg));
 }
 
 /*------------------------*/
@@ -147,14 +163,14 @@ int16_t read_Acc( const int *mpu, uint8_t sensor_add)
 
 float caculate_angle( const int *mpu, char mode[] )
 {
-	float ax = (float)read_Acc(&(*mpu), Acc_x_out)/16384.0;
-	float ay = (float)read_Acc(&(*mpu), Acc_y_out)/16384.0;
-	float az = (float)read_Acc(&(*mpu), Acc_z_out)/16384.0;
+	float ax = (float)read_Acc(&(*mpu), Acc_x_out)/8192.0;
+	float ay = (float)read_Acc(&(*mpu), Acc_y_out)/8192.0;
+	float az = (float)read_Acc(&(*mpu), Acc_z_out)/8192.0;
 	
 	if( mode == "roll")
 	{
 		float roll= atan2(ay, sqrt(pow(ax,2) + pow(az,2)))*180/M_PI;
-		//printf("\n************Roll X axial **************** \n");
+		printf("\n************Roll X axial **************** \n");
 		return roll;
 	}
 	else if( mode == "pitch")
@@ -167,5 +183,13 @@ float caculate_angle( const int *mpu, char mode[] )
 		printf("\nThe value invalid\n");
 	
 }
+
+
+float MeasureGyro( int *mpu, int sensor)
+{
+	float fReadGyro = (float)read_Acc(&(*mpu), sensor)/65.5;
+	return fReadGyro;
+}
+
 
 
