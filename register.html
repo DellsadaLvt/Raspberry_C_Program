@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title> Practice Register </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            body
+            {
+                font:  20px bold;
+                background: wheat;
+            }
+
+            .form_enter
+            {
+                width: 350px;
+                padding: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="form_enter">
+            <h2>Sign in</h2><br>
+            <p>Please inter info</p>
+
+            <form action="addData.php" method="POST">
+
+                <label for="userName">User name</label><br>
+                <input type="text" class="userName" name="userName"><br><br>
+
+                <label for="password" >Password</label><br>
+                <input type="text" class="password" name="password"><br><br>
+
+                <label for="confirmPassword">Confirm password</label>
+                <input type="text" class="conformPassword" name="confirmPassword"><br><br>
+
+                <input type="submit" value="Submit"><br><br>
+
+                <p>You have not had account?<a href="#">Sign up</a></p>
+                
+            </form>
+        </div>
+    </body>
+</html>
