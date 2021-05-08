@@ -5,8 +5,8 @@ $user = $password = $confirmPassword = "";
 $user_temp = $password_temp = $confirmPassword_temp = "";
 $user_err = $password_err = $confirmPassword_err = "";
 
-if($_SERVER["REQUEST_METHOD"] == "POST")
-{
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+	
 	include("config.php");
 	// handle for user name
 	if(empty(trim($_POST["userName"]))){
@@ -36,18 +36,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		}
 	} 
 	
-	
-	
-	if( empty($user_err) & empty($password_err)){
-	// sent data to databases
-	$sql = "insert into accounts (user, password) value ('$user', '$password')";
-	mysqli_query($conn, $sql);
-	
-	// disconnect sql
-	mysqli_close($conn);
+	//handle the confirm password
+	if(empty(trim($_POST["confirmPassword"]))){
+		$confirmPassword_err = "Please confirm password.";
+	}else{
+		if(($_POST['confirmPassword']) != $password){
+			$confirmPassword_err = "The password not match.";
+		}
 	}
 	
-
+	if( empty($user_err) & empty($password_err) & empty($confirmPassword_err)){
+		// sent data to databases
+		$sql = "insert into accounts (user, password) value ('$user', '$password')";
+		mysqli_query($conn, $sql);
+	
+		header("Content-Type: application/json");
+		$sql = "select * from accounts";
+		$result = mysqli_query($conn, $sql);
+		
+		$data = array();
+		foreach( $result as $row){
+			$data[] = row;
+		}
+		
+		// disconnect sql
+		mysqli_close($conn);
+		
+		echo json_encode($data);
+	}
+	
 }
 ?>
 
@@ -94,13 +111,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
 				<div class="form-group">
                 <label for="confirmPassword">Confirm password</label>
-                <input type="text" class="form-control" name="confirmPassword" <?php echo (!empty($confirmPassword_err))? "is-valid": ""; ?> value="<?php echo $confirmPassword; ?>">
-				<span class="invalid-feedback"><?php echo confirmPassword_err ?></span>
+                <input type="text" class="form-control <?php echo (!empty($confirmPassword_err))? "is-invalid": ""; ?>" name="confirmPassword"  value="<?php echo $confirmPassword; ?>">
+				<span class="invalid-feedback"><?php echo $confirmPassword_err; ?></span>
 				</div>
 
-                <input type="submit" value="Submit"><br><br>
+                <input type="submit" value="Submit"  ><br><br>
 
-                <p>You have not had account?<a href="#">Sign up</a></p>
+                <p>You have a account?<a href="#">Sign in</a></p>
                 
             </form>
         </div>
