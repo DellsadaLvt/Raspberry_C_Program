@@ -56,7 +56,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		
 		$data = array();
 		foreach( $result as $row){
-			$data[] = row;
+			$data[] = $row;
 		}
 		
 		// disconnect sql
