@@ -42,56 +42,18 @@ mysqli_close($conn);
 		<meta name="description" content="Page Description Here" >
     	<meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="style.css">
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
 
 	</head>
-
+	
+	
 
 	<!-- -->
-	<body>
-		<input type="checkbox" id="check">
-		<!-- Header Area Start -->
-		<header>
-
-			<label for="check">
-				<i class="fas fa-bars" id="sidebar_btn" ></i>
-			</label>
-
-			<div class="left_area">
-			<h3>Coding	 <span>Snow</span></h3>
-			</div>
-
-			<div class="right_area">
-				<a href="#" class="logout_btn">Logout</a>
-			</div>
-
-		</header>
-		<!-- Header Area End -->
+	<body style="background:#7B7D7D;">
+	
 		
-		<!-- Slidebar start -->
-		<div class="slidebar">
-			<center>
-				<img src="img_1403_iokk.jpg" width="250" class="profile_image" alt="" >
-				<h4>My Idol</h4>
-			</center>
-
-			<a href="#"><i class="fas fa-desktop"></i><span> Dashboard</span></a>
-			<a href="#"><i class="fas fa-cogs"></i><span> Components</span></a>
-			<a href="#"><i class="fas fa-table"></i><span> Tables</span></a>
-			<a href="#"><i class="fas fa-th"></i><span> Forms</span></a>
-			<a href="#"><i class="fas fa-info-circle"></i><span> About</span></a>
-			<a href="#"><i class="fas fa-sliders-h"></i><span > Settings</span></a>
-
-		
-		</div>
-		<!-- Slidebar end -->
-
-		<div class="content">
-			<br><br>
-			
-			<div class="wrapper ">
+			<div class="border border-dark rounded-3" style="float:left; width:500px; margin:20px; padding:20px;">
 				<h3 class="text-center text-decoration-underline" style="font-weight=bold;">CONTROL PANNEL</h3>
 				<form  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
 					<label for="brightness" class="form-label">Brightness</label><br>
@@ -100,14 +62,14 @@ mysqli_close($conn);
 					<label>Green</label><input type="range" class="form-range" min="0" max="255" step="10" name="green" value="<?php echo $rgb[3] ?>">
 					<label>Blue</label><input type="range" class="form-range" min="0" max="255" step="10" name="blue" value="<?php echo $rgb[2] ?>">
 					<br><br>
-					<input type="submit" class="btn btn-primary" style="margin-left:180px;" value="Apply">
+					<input type="submit" class="btn btn-primary" style="margin-left:390px;" value="Apply">
 				</form>
 			</div>
 			
-			<div class="wrapper_ ">
+			<div class="border border-dark rounded-3" style="float:left; width:350px; margin:20px; padding:20px; ">
 				<h3 style="font-weight: bold; text-align: center;" class="text-decoration-underline">STATUS</h3>
-				<div class="box_  border border-2  border-dark rounded-2 " style="background-color: rgb(<?php echo $rgb[1] ?>,<?php echo $rgb[3] ?>,<?php echo $rgb[2] ?>);"></div><br>
-				<h5 style="text-align: center; font-weight: bold; text-shadow:rebeccapurple; ">Table color value</h6>
+				<div class="border border-2  border-dark rounded-2 " style="margin:20px; padding:20px; width:280px; height: 100px; background-color: rgb(<?php echo $rgb[1] ?>,<?php echo $rgb[3] ?>,<?php echo $rgb[2] ?>);"></div>
+				<h5 style="text-align: center; font-weight: bold; text-shadow:rebeccapurple; margin-top:45px; ">Table color value</h6>
 				<table class="table	table table-striped">
 					<thead>
 						<tr>
@@ -132,9 +94,7 @@ mysqli_close($conn);
 					
 				</table>
 				</div>
-			</div>
-		</form>
-		</div>
+			
 		
 		
 	</body>
