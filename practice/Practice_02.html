@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Page 02 </title>
+		<meta charset="utf-8">
+
+		<style type="text/css">
+			table
+			{
+				border: 2px solid brown;
+			}
+
+			th
+			{
+				border: 1px solid brown;
+				color: green;
+				background-color: yellow;
+			}
+		</style>
+	</head>
+	<!-- -->
+	<body style="background-color: slateblue;">
+		<h3> Page 02 </h3>
+		<p> The table </p>
+
+		<table>
+			<tr>
+				<th>No.</th>
+				<th>Name</th>
+				<th>Value</th>
+			</tr>
+
+			<tr>
+				<td>0</td>
+				<td>Dell</td>
+				<td>value 01</td>
+			</tr>
+
+			<tr>
+				<td>1</td>
+				<td>Dell</td>
+				<td>value 01</td>
+			</tr>
+
+		</table>
+		<br>
+		<form method="POST" action="handle.php">
+			<label for="name">Name: </label>
+			<input type="text" name="name"><br>
+
+			<!-- Radio Section -->	
+			<label for="gender_">Gender: </label><br>
+			<input type="radio" id="male" name="gender_" value="male">
+			<label for="male">Male</label><br>
+			<input type="radio" id="female" name="gender_" value="female">
+			<label for="female">Female</label><br>
+
+
+			<!-- Checkbox Section -->
+			<label for="Vehicle"> Vehicle </label><br>
+			<input type="Checkbox" id="vehicle1" name="vehicle1" value="bike">
+			<label for="vehicle1"> Bike </label><br>
+			<input type="Checkbox" name="vehicle2_" value="motor Bike_2">
+			<label for="vehicle2"> Motor Bike </label><br>
+			<input type="Checkbox" name="vehicle3" value="car">
+			<label for="vehicle3"> Car </label><br>
+
+			<input type="submit" value="submit">
+
+		</form>
+
+		<a href="Practice_html.html">Return</a>
+
+	</body>
+</html>

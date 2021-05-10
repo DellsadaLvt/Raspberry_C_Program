@@ -1,0 +1,191 @@
+body
+{
+	margin: 0;
+	padding: 0;
+	font-family: "Roboto", sans-serif;
+
+}
+
+header
+{
+	margin-top: -15px;
+	position: fixed;
+	background: #2e067a;
+	padding-left: 30px;
+	width: 100%;
+	height: 60px;
+}
+
+.left_area h3
+{
+	color: #fff;
+	margin: 0;
+	margin-left: 55px;
+	text-transform:  uppercase;
+	font-size: 22px;
+	font-weight: 900;
+}
+
+.left_area span
+{
+	color: #e6348f;
+}
+
+.logout_btn
+{
+	padding: 5px;
+	background: #4eedf0;
+	text-decoration: none;
+	float: right;
+	margin-top: -30px;
+	margin-right: 40px;
+	border-radius: 2px;
+	font-size: 15px;
+	font-weight: 600;
+	color: #fff;
+	transition: 0.5s;
+	transition-property: background;
+}
+
+.logout_btn:hover
+{
+	background: #0D9DBB;
+}
+
+
+.slidebar
+{
+	background:#000000 ;
+	margin-top: 45px;
+	padding-top: 30px;
+	position: fixed;
+	left: 0;
+	width: 250px;
+	height: 100%;
+	transition: 0.5s;
+	transition-property: left;
+}
+
+.slidebar .profile_image
+{
+	width: 100px;
+	height: 100px;
+	border-radius: 100px;
+	margin-bottom: 10px;
+}
+
+.slidebar h4
+{
+	color: #ffe;
+	margin-top: 0;
+	margin-bottom: 20px;
+	
+}
+
+.slidebar a
+{
+	color: #fff;
+	display: block;
+	width: 100%;
+	line-height:  60px;
+	text-decoration: none;
+	padding-left: 40px;
+	box-sizing:  border-box;
+	transition: 0.5s;
+	transition-property: background;
+}
+
+.slidebar a:hover
+{
+	background: #00f;
+}
+
+.slidebar
+{
+	padding-right: 10px;
+}
+
+label #sidebar_btn
+{
+	z-index: 1;
+	color: #000;
+	position: fixed;
+	cursor: pointer;
+	left:  30px;
+	font-size: 20px;
+	margin: 9px 0;	
+	transition: 0.5s;
+	transition-property: color;
+}
+
+label #sidebar_btn:hover
+{
+	color: #19bbd3;	
+}
+
+#check:checked ~ .slidebar
+{
+	left: -190px;
+}
+
+#check:checked ~ .slidebar a span
+{
+	display: none;
+}
+
+#check:checked ~ .slidebar a
+{
+	font-size: 20px;
+	margin-left: 170px;
+	width: 80px;
+}
+
+.content
+{
+	margin-left: 250px;
+	background: url(img_1403_iokk.jpg) no-repeat;
+	background-position: center;
+	background-size: cover;
+	height: 100vh;
+	transition: 0.5s;
+	transition-property: margin-left;
+
+}
+
+ #check:checked ~ .content
+ {
+ 	margin-left: 60px;
+ }
+ #check
+ {
+ 	display: none;
+	
+ }
+
+.wrapper{
+	position: fixed;
+	padding:20px;
+	margin-top:10px;
+	margin-left: 400px;
+	width:	450px;
+	float:left;
+
+}
+
+.wrapper_{
+	position:fixed;
+	margin-top:400px;
+	margin-left: 480px;
+	padding:5px;
+	width: 300px;
+	float:left;
+	background: none;
+}
+
+.box_{
+	
+	margin-left: 70px;
+	width:150px;
+	height: 50px;
+}
+
