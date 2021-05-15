@@ -1,0 +1,4 @@
+These files use smartGarden databases.
+This database has two tables include:
+	setup table: used for store information setup of led and pump.
+	tempAndHumid: used for store values of temperature and humidity.
