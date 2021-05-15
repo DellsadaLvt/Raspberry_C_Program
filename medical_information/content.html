@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Medical Information </title>
+        <meta charset="UTF-8"  >
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+        <style>
+            body{
+                background-color: rgb(48, 4, 19);
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 20px;
+            }
+            
+            .region_1{
+                background-color: cornsilk;
+                float: left;
+                margin: 20px;
+                padding: 20px;
+            }
+
+            td{
+                text-align: center;
+                margin: 100px;
+                
+            }
+        </style>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <div class="region_1 border border-3 rounded-3">
+            <div style="margin-bottom: 50px; text-align: center; font-weight: bold; font-size: 30px;"> Form Information </div >
+            <form action=""   metho="POST">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name"><br><br>
+                <label for="birth">DateOfBirth</label>
+                <input type="date" name="DoB" id="birth" ><br><br>
+                <label for="gender" style="margin-right: 50px;">Gender:</label>
+                <input type="radio" name="gender" id="gender" value="Male"><span style="margin-left: 20px;">Male</span>
+                <input type="radio" name="gender" id="gender" value="Female"><span style="margin-left: 20px;">Female</span>
+                <br>
+                <input type="submit" class="btn-info" value="Send" style="margin-top: 30px; float:right;">
+            </form>
+        </div>
+
+
+        <div class="region_1 border border-3 rounded-3">
+            <div style="font-size: 30px; text-align: center; font-weight: bold; margin-bottom: 30px;">Updated Information</div>
+            <table class="table  table-striped" >
+                <tr>
+                    <th>Name</th>
+                    <td id="td1" ></td>
+                </tr>
+                <tr>
+                    <th>DoB</th>
+                    <td id="td2" ></td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td id="td3" ></td>
+                </tr>
+                <tr>
+                    <th>Height</th>
+                    <td id="td4"></td>
+                </tr>
+                <tr>
+                    <th>Weight</th>
+                    <td id="td5"></td>
+                </tr>
+                <tr>
+                    <th >BMI</th>
+                    <td id="td6"></td>
+                </tr>
+            </table>
+        </div>
+
+		
+		<script>
+			$(document).ready( function(){
+				updateTable();
+			});
+			
+			setInterval(updateTable, 1000);
+			function updateTable(){
+				// require server execute php file
+				$.post("get_data.php", 
+				function(data){
+					// get data from var(data)
+					var td1 = data[0].name;
+					var td2 = data[0].date_of_birth;
+					var td3 = data[0].gender;
+					var td4 = data[0].height;
+					var td5 = data[0].weight;
+					var td6 = data[0].BMI;
+					//var td7 = data[0].time_update;
+					
+					// echo data to web
+					document.getElementById("td1").innerHTML= td1;
+					document.getElementById("td2").innerHTML= td2;
+					document.getElementById("td3").innerHTML= td3;
+					document.getElementById("td4").innerHTML= td4;
+					document.getElementById("td5").innerHTML= td5;
+					document.getElementById("td6").innerHTML= td6;
+					//document.getElementById("td7").innerHTML= td7;
+					
+				})
+			}
+
+		</script>
+       
+    </body>
+
+
+</html>
