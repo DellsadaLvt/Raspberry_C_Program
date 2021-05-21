@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Medical Information </title>
+        <meta charset="UTF-8"  >
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+        <style>
+            body{
+				font-size:30px;
+				margin:20px;
+				padding:20px;
+			}
+			
+			h1{
+				text-align:center;
+			}
+			
+			.box_1{
+				float:left;
+				margin:20px;
+				padding:10px;
+				
+			}
+			
+			
+        </style>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+
+    <body>
+        
+		<h1> MEDICAL INFORMATION </h1>
+		<div class="box_1 border border-primary rounded-3 ">
+			<h3>Information</h3>
+			<div class="mb-3">
+				<form>
+					<label for="1" class="col-sm-2 col-form-label">Name</label>
+					<input type="text" id="1" name="name" class="form-control">
+					
+					<label for="2" class="col-sm-2 col-form-label">DoB</label>
+					<input type="date" id="2" name="dob" class="form-control">
+					<br>
+					<div class="form-check">
+						<input type="radio" class="form-check-input" id="male" name="gender" value="male">
+						<label for="male">Male</label><br>
+						<input type="radio" class="form-check-input" id="female" name="gender" value="female">
+						<label for="female">Female</label><br>
+						<input type="radio" class="form-check-input" id="other" name="gender" value="other">
+						<label for="other">Other</label>
+					</div>
+					<br>
+					<input type="submit"  class="btn btn-primary mb-3" value="Enter">
+				</form>
+			</div>
+		</div>
+		
+		
+		<div class="box_1 border border-primary rounded-3">
+			<table>
+				<tr>
+					<th>Name</th>
+					<td id="name"></td>
+				</tr>
+				
+				<tr>
+					<th>Dob</th>
+					<td id=""></td>
+				</tr>
+				
+				<tr>
+					<th>Gender</th>
+					<td id=""></td>
+				</tr>
+				
+				<tr>
+					<th>Height</th>
+					<td id="height"></td>
+				</tr>
+				
+			</table>
+		</div>
+		
+		<script>
+			$(document).ready(function(){
+				updateTable();
+			});
+			
+			setInterval(updateTable, 1000);
+			
+			function updateTable(){
+				$.post("getData.php", function(data){
+					var datHeight = data[0].height;
+					
+					document.getElementById("height").innerHTML = datHeight;
+				});
+			
+			
+			}
+		</script>
+		
+    </body>
+
+
+</html>
