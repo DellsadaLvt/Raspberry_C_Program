@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>HOME PAPE</title>
+	
+	<style>
+	
+		body{
+			background:url("Control_Led/img_1403_iokk.jpg");
+			width:300px;
+		}
+		.wrapper{
+			font-size:20px;
+			font-code: black;
+			background: gray;
+			float:left;
+			margin:10px;
+			padding:10px;
+			width: 380px;
+			
+		}
+		
+		.content{
+			
+		}
+	</style>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  </head>	
+<!---->
+  <body>
+    <div style="float:left;" class="border border-3">
+		<form class="form item" id="form" action="" method="POST">
+		<label class = "item_1" for="Manual">MANUAL</label><br><br>
+		<div>
+		<h3>Led 0</h3>
+			<input type="radio" id="onL0" style="" name="stateLed0" value="on">
+				<label for="onL0" style="margin-right:50px;">On Led 0</label>
+			<input type="radio" id="offL0" style="" name="stateLed0" value="off">
+				<label for="offL0" style="margin-right:50px;">Off Led 0</label>
+		</div>
+		<div>
+		<h3>Led 1</h3>
+			<input type="radio" id="onL1" style="" name="stateLed1" value="on">
+				<label for="onL1" style="margin-right:50px;">On Led 1</label>
+			<input type="radio" id="offL1" style="" name="stateLed1" value="off">
+				<label for="offL1" style="margin-right:50px;">Off Led 1</label>
+		</div>
+		<div>
+		<h3>Led 2</h3>
+			<input type="radio" id="onL2" style="" name="stateLed2" value="on">
+				<label for="onL2" style="margin-right:50px;">On Led 2</label>
+			<input type="radio" id="offL2" style="" name="stateLed2" value="off">
+				<label for="offL2" style="margin-right:50px;">Off Led 2</label>
+		</div>
+		<div>
+		<h3>Led 3</h3>
+			<input type="radio" id="onL3" style="" name="stateLed3" value="on">
+				<label for="onL3" style="margin-right:50px;">On Led 3</label>
+			<input type="radio" id="offL3" style="" name="stateLed3" value="off">
+				<label for="offL3" style="margin-right:50px;">Off Led 3</label>
+		</div>
+		
+		
+		<div>
+		<h3>Fan</h3>
+			<input type="radio" id="fano" style="" name="fan" value="on">
+				<label for="fano" style="margin-right:50px;">On Fan</label>
+			<input type="radio" id="fanf" style="" name="fan" value="off">
+				<label for="fanf" style="margin-right:50px;">Off Fan</label>
+		</div>
+		<div>
+		
+		
+		<div >
+			<input type="number" name="ena" value="1"style="display:none;">
+		</div>
+		
+		
+		<div class="">
+		<br>
+			
+		</div>
+		 
+							
+		<input type="submit"  value="Apply" style="margin-top:20px; margin-top:30px; background:#319CA8; ">
+		</form>
+	</div>
+	
+	<div style="float:left;" class="border border-3">
+		<table class="table	table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Led0</th>
+					<th scope="col">Led1</th>
+					<th scope="col">Led2</th>
+					<th scope="col">Led3</th>
+					<th scope="col">Fan</th>
+					<th scope="col">Rain</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr>
+					<td id="led0"></td>
+					<td id="led1"></td>
+					<td id="led2"></td>
+					<td id="led3"></td>
+					<td id="fan"></td>
+					<td id="rain"></td>
+				</tr>
+				
+			</tbody>
+					
+		</table>
+	</div>
+	
+	
+	<script>
+		$(document).ready(
+			function(){
+				// add data
+				$(document).on("submit", "form", 
+				function(){
+						$.post("addData.php", $("#form").serialize(),
+						function(){
+							alert("Data is send.")
+						});
+						return false;
+					}
+				);
+				// get data
+				getData();
+				
+			}
+		);
+		
+		setInterval(getData, 1000);
+		
+		// function
+		function getData(){	
+			$.post("getData.php", function(data){
+				var dat0 = data[0].stateLed0;
+				var dat1 = data[0].stateLed1;
+				var dat2 = data[0].stateLed2;
+				var dat3 = data[0].stateLed3;
+				var dat4 = data[0].stateFan;
+				var dat5= data[0].stateRain;
+				
+				
+				document.getElementById("led0").innerHTML = dat0;
+				document.getElementById("led1").innerHTML = dat1;
+				document.getElementById("led2").innerHTML = dat2;
+				document.getElementById("led3").innerHTML = dat3;
+				document.getElementById("fan").innerHTML  = dat4;
+				document.getElementById("rain").innerHTML = dat5;
+			});
+		}
+		
+		
+		
+	</script>
+	
+  </body>
+</html>
